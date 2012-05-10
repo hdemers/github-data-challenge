@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+    <title>d3.js Spinny Globe from Mike Bostock's SVG Open 2011 keynote</title>
+    <script src="http://mbostock.github.com/d3/d3.js"></script>
+    <script src="http://mbostock.github.com/d3/d3.geo.js"></script>
+    <link type="text/css" rel="stylesheet" href="http://mbostock.github.com/d3/talk/20111018/style.css"/>
+    <link type="text/css" rel="stylesheet" href="http://mbostock.github.com/d3/talk/20111018/colorbrewer/colorbrewer.css"/>
+    <style type="text/css">
+
+svg {
+  width:  800px;
+  height: 800px;
+  pointer-events: all;
+}
+
+circle {
+  fill: #dbe4f0;
+}
+
+path {
+  fill: #aaa;
+  stroke: #fff;
+}
+
+#header {
+  top: 7px;
+  left: 685px;
+  text-align: right;
+  width: auto;
+}
+
+#header div {
+  font-size: 12px;
+}
+
+.tip { color: #999; }
+    </style>
+
+  </head>
+  <body>
+    <div id="body">
+      <div id="header">
+        d3.geo.azimuthal
+        <div><label for="proj">Projection: </label><select id="proj">
+          <option value="equalarea">equalarea</option>
+          <option value="equidistant">equidistant</option>
+          <option value="gnomonic">gnomonic</option>
+          <option value="orthographic" selected>orthographic</option>
+          <option value="stereographic">stereographic</option>
+        </select></div>
+        <div class="tip">drag to rotate the origin</div>
+        <div><label for="animate">animate:</label>
+          <input id="animate" type="checkbox" checked>
+        </div>
+      </div>
+    </div>
+    <script src="globe.js"></script>
+  </body>
+</html>
