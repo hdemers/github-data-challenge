@@ -1,0 +1,28 @@
+svg {
+  width:  800px;
+  height: 800px;
+  pointer-events: all;
+}
+
+circle {
+  fill: #dbe4f0;
+}
+
+path {
+  fill: #aaa;
+  stroke: #fff;
+}
+
+#header {
+  top: 7px;
+  left: 685px;
+  text-align: right;
+  width: auto;
+}
+
+#header div {
+  font-size: 12px;
+}
+
+.tip { color: #999; }
+
