@@ -20,6 +20,13 @@
         <div><label for="animate">animate:</label>
           <input id="animate" type="checkbox" checked>
         </div>
+        <div>
+          <select data-bind="
+            options: repositories,
+            value: selectedRepo,
+            optionsCaption: 'Loading repositories...'">
+          </select>
+        </div>
       </div>
     </div>
   </body>
