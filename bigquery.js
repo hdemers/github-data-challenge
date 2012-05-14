@@ -1,7 +1,8 @@
 /*global  gapi:false, _:false*/
 define([
   "jquery",
-  "viz"
+  "viz",
+  "underscore"
 ],
 function ($, viz) {
   console.log("Initializing module bigquery.");
@@ -25,7 +26,7 @@ function ($, viz) {
       "LENGTH(actor_attributes_location) > 3 AND " +
       "repository_name = 'REPO' " +
       "AND repository_owner = 'OWNER' AND " +
-      "repository_fork = 'false' ORDER BY repository_forks",
+      "repository_fork = 'false' ORDER BY repository_forks DESC",
     testQuery = 'SELECT repository_name ' + 
       'FROM githubarchive:github.timeline LIMIT 100;',
     repositoryData = {};
@@ -48,7 +49,6 @@ function ($, viz) {
 
   var getMostForkedRepos = function (viewmodel) {
     exports.request(mostForkedRepoQuery, function (result) {
-      console.log(result.rows);
       var names = _.map(result.rows, function (row) {
         repositoryData[row.f[0].v] = {
           name: row.f[0].v,
@@ -73,12 +73,12 @@ function ($, viz) {
       var cities = _.map(result.rows, function (row) {
         return {
           'date': row.f[0].v,
-          'city': row.f[1].v,
-          'forks': row.f[2].v
+          'name': row.f[1].v,
+          'totalForks': row.f[2].v,
+          'forks': 0
         }
       });
-      console.log(cities);
-      //viz.addCities(cities);
+      viz.addCities(cities);
     });
   };
 
