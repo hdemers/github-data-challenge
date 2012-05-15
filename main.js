@@ -18,6 +18,7 @@ function (globe, viz, geonames, bigquery, ko) {
   };
 
   ko.applyBindings(viewmodel);
+  bigquery.init(viewmodel);
   //domReady(function () {
     //console.log("DOM ready.")
     //app.initialize()
