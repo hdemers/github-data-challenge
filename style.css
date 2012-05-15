@@ -1,17 +1,14 @@
 svg {
-  width:  800px;
-  height: 800px;
+  width: 100%;
+  height: 600px;
   pointer-events: all;
 }
 
-circle {
-  fill: #dbe4f0;
-}
-
-path {
+#countries path {
   fill: #aaa;
   stroke: #fff;
 }
+
 
 #header {
   top: 7px;
@@ -26,3 +23,12 @@ path {
 
 .tip { color: #999; }
 
+#arcs path {
+  fill: none;
+  stroke-opacity: .9;
+  stroke: #4183C4;
+}
+
+#cities circle {
+  fill: #234a70;
+}

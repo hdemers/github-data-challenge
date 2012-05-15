@@ -9,8 +9,8 @@ require({
   }
 })
 
-require(['globe', 'viz', 'geonames', 'bigquery', 'knockout', "underscore"],
-function (globe, viz, geonames, bigquery, ko) {
+require(['flat', 'viz', 'geonames', 'bigquery', 'knockout', "underscore"],
+function (flat, viz, geonames, bigquery, ko) {
 
   viewmodel = {
     repositories: ko.observableArray(),

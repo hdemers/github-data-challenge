@@ -78,7 +78,7 @@ function ($, viz) {
         }
       });
       console.log(cities);
-      //viz.drawCities(cities);
+      //viz.addCities(cities);
     });
   };
 
