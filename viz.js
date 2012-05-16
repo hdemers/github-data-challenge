@@ -9,8 +9,8 @@ function (earth, geonames) {
   var exports = {};
   
   exports.addCities = function (cities) {
-    var geocities = {}, geo;
-    cities.splice(2);
+    var geocities = {}, geo, origin = cities[0];
+    //cities.splice(2);
     console.log(cities);
     _.each(cities, function (city) {
       geonames.getLngLat(city.name, function (canonicalName, lng, lat) {
@@ -21,6 +21,8 @@ function (earth, geonames) {
         geo.forks += 1;
         geocities[canonicalName] = geo;
         drawCity(_.values(geocities));
+        // TODO: This is not working... Don't know why.
+        //drawArc(origin, city);
       });
     });
   };
@@ -48,25 +50,37 @@ function (earth, geonames) {
   };
 
   var drawArc = function (source, target) {
+    console.log("Arc: ", source, target);
     var arc = d3.geo.greatArc()
-      .source(source)
-      .target(target);
+      .source(source.coord)
+      .target(target.coord);
     earth.arcs.selectAll("path")
-      .data([arc])
+      .data([arc()])
       .enter().append("svg:path")
       .attr("d", earth.path);
-    console.log(arc);
   };
 
+  //var addArc = function (source_coords, target_coords) {
+    //var arc = d3.geo.greatArc()
+      //.source(source_coords)
+      //.target(target_coords);
+    //globe.arcs.selectAll("path")
+      //.data([arc()])
+      //.enter().append("svg:path")
+      //.attr("d", globe.clip);
+
+    //globe.refresh();
+    
+  //};
   exports.erase = function () {
     drawCity([]);
   }
 
-  var cities = [
-    {coord: [-104.99404, 39.75621], forks: 600, city: "Quebec"},
-    {coord: [110.99404, 45.75621], forks: 1000, city: "Montreal"}
-  ];
+  //var cities = [
+    //{coord: [-104.99404, 39.75621], forks: 600, city: "Quebec"},
+    //{coord: [110.99404, 45.75621], forks: 1000, city: "Montreal"}
+  //];
 
-  drawArc(cities[0].coord, cities[1].coord);
+  //drawArc(cities[0], cities[1]);
   return exports;
 });
