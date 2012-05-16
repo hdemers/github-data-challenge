@@ -11,6 +11,7 @@ function (earth, geonames) {
   exports.addCities = function (cities) {
     var geocities = {}, geo;
     cities.splice(2);
+    console.log(cities);
     _.each(cities, function (city) {
       geonames.getLngLat(city.name, function (canonicalName, lng, lat) {
         console.log(canonicalName);
@@ -46,9 +47,26 @@ function (earth, geonames) {
       });
   };
 
+  var drawArc = function (source, target) {
+    var arc = d3.geo.greatArc()
+      .source(source)
+      .target(target);
+    earth.arcs.selectAll("path")
+      .data([arc])
+      .enter().append("svg:path")
+      .attr("d", earth.path);
+    console.log(arc);
+  };
+
   exports.erase = function () {
     drawCity([]);
   }
 
+  var cities = [
+    {coord: [-104.99404, 39.75621], forks: 600, city: "Quebec"},
+    {coord: [110.99404, 45.75621], forks: 1000, city: "Montreal"}
+  ];
+
+  drawArc(cities[0].coord, cities[1].coord);
   return exports;
 });

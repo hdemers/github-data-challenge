@@ -29,6 +29,9 @@ function ($, viz) {
       "repository_fork = 'false' ORDER BY repository_forks DESC",
     testQuery = 'SELECT repository_name ' + 
       'FROM githubarchive:github.timeline LIMIT 100;',
+    ownerLocationQuery = "SELECT actor_attributes_location " + 
+      "FROM githubarchive:github.timeline " +
+      "WHERE actor = 'OWNER' LIMIT 1",
     repositoryData = {};
 
   if (projectId === "") {
@@ -78,7 +81,18 @@ function ($, viz) {
           'forks': 0
         }
       });
-      viz.addCities(cities);
+      // Get the owner's location
+      query = ownerLocationQuery.replace("OWNER", repo.owner);
+      exports.request(query, function (result) {
+        console.log("Owner location: ", result);
+        cities.unshift({
+          'date': "",
+          'name': result.rows[0].f[0].v,
+          'totalForks': 0,
+          'forks': 1
+        });
+        viz.addCities(cities);
+      });
     });
   };
 
