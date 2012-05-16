@@ -12,7 +12,7 @@ function () {
   var path = d3.geo.path()
     .projection(exports.projection);
 
-  var svg = d3.select("#body").append("svg:svg");
+  var svg = d3.select("svg");
 
   var countries = svg.append("g").attr("id", "countries");
   exports.cities = svg.append("g").attr("id", "cities");

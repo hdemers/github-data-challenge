@@ -4,7 +4,8 @@ define([
 ],
 function () {
   var exports = {},
-    toggle = {};  // animation on/off control
+    toggle = {},  // animation on/off control
+    m0, o0, done;
 
   function stopAnimation() {
     done = true;
@@ -27,7 +28,6 @@ function () {
     return 'animation: ' + (done ? 'off' : 'on');
   }
 
-  var m0, o0, done;
 
   function mousedown() {
     stopAnimation();
@@ -59,6 +59,11 @@ function () {
     .origin([-71.03, 42.37])
     .mode("orthographic")
     .translate([400, 400]);
+  
+  var svg = d3.select("#body").append("svg:svg")
+    .attr("width",  800)
+    .attr("height", 800)
+    .on("mousedown", mousedown);
 
   var circle = d3.geo.greatCircle()
       .origin(exports.projection.origin());
@@ -66,13 +71,17 @@ function () {
   var path = d3.geo.path()
     .projection(exports.projection);
 
+  var countries = svg.append("g").attr("id", "countries");
+  exports.arcs = svg.append("g").attr("id", "arcs");
+  exports.cities = svg.append("g").attr("id", "cities");
+
   d3.json("world-countries.json", function (collection) {
-    exports.feature
+    var paths = countries.selectAll("path")
       .data(collection.features)
       .enter().append("svg:path")
       .attr("d", exports.clip);
 
-    exports.feature.append("svg:title")
+    paths.append("svg:title")
       .text(function (d) { return d.properties.name; });
 
     //startAnimation();
@@ -90,18 +99,10 @@ function () {
       .on("mousemove", mousemove)
       .on("mouseup", mouseup);
 
-  var svg = d3.select("#body").append("svg:svg")
-    .attr("width",  800)
-    .attr("height", 800)
-    .on("mousedown", mousedown);
-
-  // Init feature
-  exports.feature = svg.selectAll('path');
-
   exports.refresh = function (duration) {
-    exports.feature = svg.selectAll('path');
-    (duration ? exports.feature.transition().duration(duration) :
-      exports.feature).attr("d", exports.clip);
+    var paths = svg.selectAll('path');
+    (duration ? paths.transition().duration(duration) :
+      paths).attr("d", exports.clip);
   }
 
   exports.clip = function (d) {
