@@ -7,10 +7,6 @@ import webapp2
 from google.appengine.api import memcache
 from apiclient.discovery import build
 from oauth2client.appengine import AppAssertionCredentials
-try:
-    from oauth2client.client import SignedJwtAssertionCredentials
-except ImportError:
-    pass
 
 
 PROJECT_ID = ""
@@ -72,30 +68,6 @@ def service():
     credentials = AppAssertionCredentials(
         scope='https://www.googleapis.com/auth/bigquery')
     http = credentials.authorize(httplib2.Http(memcache))
-    return build("bigquery", "v2", http=http)
-
-
-# NOTE: Does not work under GAE. pyOpenSSL is not supported under GAE.
-def create_service():
-    # Load the key in PKCS 12 format that you downloaded from the Google API
-    # Console when you created your Service account.
-    f = file('dataviz/%s.p12' % pkey, 'rb')
-    key = f.read()
-    f.close()
-
-    # Create an httplib2.Http object to handle our HTTP requests and authorize
-    # it with the Credentials. Note that the first parameter,
-    # service_account_name, is the Email address created for the Service
-    # account. It must be the email address associated with the key that was
-    # created.
-    credentials = SignedJwtAssertionCredentials(
-        '%s-ren230ggiuprsnajd5is07hs2dlnohnj@developer.gserviceaccount.com' %
-          PROJECT_ID,
-        key,
-        scope='https://www.googleapis.com/auth/bigquery')
-    http = httplib2.Http()
-    http = credentials.authorize(http)
-
     return build("bigquery", "v2", http=http)
 
 
