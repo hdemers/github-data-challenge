@@ -4,7 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
     <title>GitHub Data Challenge - OODA Technologies</title>
     
-    <link type="text/css" rel="stylesheet" href="http://mbostock.github.com/d3/talk/20111018/style.css"/>
     <link type="text/css" rel="stylesheet" href="http://mbostock.github.com/d3/talk/20111018/colorbrewer/colorbrewer.css"/>
     <link type="text/css" rel="stylesheet" href="style.css"/>
 
@@ -12,28 +11,53 @@
 
   </head>
   <body>
-    <div id="body">
+    <div id="container">
+      <!--Header-->
       <div id="header">
-        GitHub Data Challenge <br>
-        OODA Technologies
-        <div class="tip">drag to rotate the origin</div>
-        <div><label for="animate">animate:</label>
-          <input id="animate" type="checkbox" checked>
-        </div>
-        <div>
-          <select data-bind="
-            options: repositories,
-            value: selectedRepo,
-            optionsCaption: 'Loading repositories...'">
-          </select>
+	<div id="header-title">
+		<div id="header-title-l1">
+		  TOP <span style="color:black">github</span> PROJECTS
+		</div>
+		<div id="header-title-l2">
+		  and their geographic distribution
+		</div>
+	</div>
+	<TD style="border-left: 1px solid black; padding: 1px;">
+	<div id="header-projDescription">
+	  This dynamic graph shows the locations of GitHub project owners and participants on a world map.
+	  Project participants are users that forked the original project. Locations are determined from the users' profiles and are only as accurate as the user allowed.
+	</div>
+      </div>
+      <div id="projSelect">
+	<div id="projSelect-label">
+	  Select a project
+	</div>
+	<div id="projSelect-dropdown">
+	  <select data-bind="
+	    options: repositories,
+  	    value: selectedRepo,
+	    optionsCaption: 'Loading repositories...'">
+	  </select>
+	</div>
+      </div>
+      <!--Main content-->
+      <div>
+	<svg></svg>
+        <!--Floating content-->
+        <div id="floatingContent">
+	  <span id="cityname">Forks by city</span>
+	  <span id="forks"></span>
         </div>
       </div>
-      <svg></svg>
+
+      <!--Footer-->
       <div>
-        <h2>
-          <span id="cityname">Forks by city</span>
-          <span id="forks"></span>
-        <h2>
+	<div id="footer-logo">
+	  <img src="OODA_Logo.png" width="115" height="51"/>
+	</div>
+	<div id="footer-text">
+	  The code on this page is powered by Google BigQuery, Data-Driven Documents (D3), and GeoNames.
+	</div>
       </div>
     </div>
   </body>
