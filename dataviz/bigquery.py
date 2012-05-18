@@ -37,12 +37,20 @@ WHERE type = 'ForkEvent' AND
 ORDER BY repository_forks DESC
 """
 
+REPO_HOMETOWN = """
+SELECT actor_attributes_location 
+FROM githubarchive:github.timeline 
+WHERE actor = '%s'
+LIMIT 1
+"""
+
 # In seconds.
 CACHE_EXPIRATION_TIME = 3600 * 24
 
 queries = {
     "top": MOST_FORKED_REPO_QUERY,
     "repo": REPO_TIMELINE,
+    "hometown": REPO_HOMETOWN,
 }
 
 
@@ -113,19 +121,33 @@ def get_top_repositories():
 
 
 def get_repo_timeline(repo_name, repo_owner):
+    response = []
+    # Add hometown at the beginning of the list.
+    query = queries['hometown'] % repo_owner
+    results = request(query)
+    response.append(make_city("", results['rows'][0]['f'][0]['v'], "", True))
+
+    # Add all other forks.
     query = queries['repo'] % (repo_name, repo_owner)
     results = request(query)
-    response = []
     for row in results['rows']:
-        city = geonames.locate(row['f'][1]['v'])
-        response.append({
-            "date": row['f'][0]['v'],
-            "name": city.get('name', ""),
-            "coord": city.get('coord', []),
-            "totalForks": row['f'][2]['v'],
-            "forks": 0,
-        })
+        response.append(make_city(row['f'][0]['v'], 
+                                  row['f'][1]['v'],
+                                  row['f'][2]['v']))
     return response
+
+
+def make_city(date, name, totalForks, hometown=False):
+    city = geonames.locate(name)
+    return {
+        "date": date,
+        "name": city.get('name', ""),
+        "coord": city.get('coord', []),
+        "totalForks": totalForks,
+        "forks": 0,
+        "hometown": hometown,
+    }
+
 
 
 def request(query):
