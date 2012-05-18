@@ -14,51 +14,52 @@
     <div id="container">
       <!--Header-->
       <div id="header">
-	<div id="header-title">
-		<div id="header-title-l1">
-		  TOP <span style="color:black">github</span> PROJECTS
-		</div>
-		<div id="header-title-l2">
-		  and their geographic distribution
-		</div>
-	</div>
-	<TD style="border-left: 1px solid black; padding: 1px;">
-	<div id="header-projDescription">
-	  This dynamic graph shows the locations of GitHub project owners and participants on a world map.
-	  Project participants are users that forked the original project. Locations are determined from the users' profiles and are only as accurate as the user allowed.
-	</div>
-      </div>
-      <div id="projSelect">
-	<div id="projSelect-label">
-	  Select a project
-	</div>
-	<div id="projSelect-dropdown">
-	  <select data-bind="
-	    options: repositories,
-  	    value: selectedRepo,
-	    optionsCaption: 'Loading repositories...'">
-	  </select>
-	</div>
-      </div>
-      <!--Main content-->
-      <div>
-	<svg></svg>
-        <!--Floating content-->
-        <div id="floatingContent">
-	  <span id="cityname">Forks by city</span>
-	  <span id="forks"></span>
+        <div id="header-title">
+          <div id="header-title-l1">
+            TOP <span style="color:black">github</span> PROJECTS
+          </div>
+          <div id="header-title-l2">
+            and their geographic distribution
+          </div>
+        </div>
+        <TD style="border-left: 1px solid black; padding: 1px;">
+          <div id="header-projDescription">
+            This dynamic graph shows the locations of GitHub project owners and
+            participants on a world map.  Project participants are users that
+            forked the original project. Locations are determined from the
+            users' profiles and are only as accurate as the user allowed.
+          </div>
+        </div>
+        <div id="projSelect">
+          Select a project
+          <select data-bind="
+            options: repositories,
+            value: selectedRepo,
+            optionsCaption: 'Loading repositories...'">
+          </select>
+        </div>
+        <!--Main content-->
+        <div>
+          <svg></svg>
+          <!--Floating content-->
+          <div id="floatingContent">
+            <span id="cityname">Forks by city</span>
+            <span id="forks"></span>
+          </div>
+        </div>
+
+        <!--Footer-->
+        <div id="footer">
+          <a href="http://www.ooda.ca">
+            <img src="img/OODA_Logo.png" width="115" height="51"/>
+          </a>
+          <div id="footer-text">
+            The code on this page is powered by <a
+              href="https://developers.google.com/bigquery/">Google
+              BigQuery</a>, <a href="http://d3js.org/">Data-Driven Documents
+              (D3)</a>, and <a href="http://www.geonames.org/">GeoNames</a>.
+          </div>
         </div>
       </div>
-
-      <!--Footer-->
-      <div>
-	<div id="footer-logo">
-	  <img src="OODA_Logo.png" width="115" height="51"/>
-	</div>
-	<div id="footer-text">
-	  The code on this page is powered by Google BigQuery, Data-Driven Documents (D3), and GeoNames.
-	</div>
-      </div>
-    </div>
   </body>
 </html>
