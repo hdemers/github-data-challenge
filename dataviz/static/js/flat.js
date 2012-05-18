@@ -1,6 +1,7 @@
 /*global d3:false, _:false*/
 define([
-  "d3"
+  "d3",
+  "underscore"
 ],
 function () {
   var exports = {};
@@ -17,7 +18,7 @@ function () {
   var countries = svg.append("g").attr("id", "countries");
   exports.cities = svg.append("g").attr("id", "cities");
 
-  d3.json("world-countries.json", function (collection) {
+  d3.json("/js/world-countries.json", function (collection) {
     // Filter out Antartica, it's too big.
     var features = _.filter(collection.features, function (elem) {
       return elem.id !== "ATA";

@@ -1,5 +1,6 @@
 /*global  viewmodel:true*/
-require({
+require.config({
+  baseUrl: "/js",
   paths: {
     "jquery": "http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min",
     "underscore": "http://documentcloud.github.com/underscore/underscore-min",
@@ -9,7 +10,7 @@ require({
   }
 })
 
-require(['flat', 'viz', 'geonames', 'bigquery', 'knockout', "underscore"],
+require(['flat', 'viz', 'geonames', 'bigquery2', 'knockout', "underscore"],
 function (flat, viz, geonames, bigquery, ko) {
 
   viewmodel = {
