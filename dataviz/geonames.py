@@ -1,4 +1,5 @@
 import logging
+from httplib import HTTPException
 
 from google.appengine.api import memcache
 from dataviz.restclient import RestClient
@@ -12,11 +13,14 @@ geonames = RestClient(URL, "")
 
 def locate(name):
     city = memcache.get(name)
-    logging.debug("Memcache has %r for key %r" % (city, name))
     if city is None:
         logging.warn("Cache miss for geonames, key %r" % name)
-        response = geonames.get("searchJSON", q=name, username=USERNAME,
-                                maxRows=1)
+        try:
+            response = geonames.get("searchJSON", q=name, username=USERNAME,
+                                    maxRows=1)
+        except HTTPException, exception:
+            logging.warn("Timeout occured %r" % exception)
+            return {}
         city = {}
         if "totalResultsCount" in response and response['totalResultsCount']:
             city = {
@@ -27,5 +31,4 @@ def locate(name):
                 ],
             }
         result = memcache.add(name, city)
-        logging.debug("Memcached %r with key %r: %r" % (city, name, result))
     return city

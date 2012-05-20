@@ -34,7 +34,9 @@ ORDER BY repository_forks DESC
 """
 
 # In seconds.
-CACHE_EXPIRATION_TIME = 3600 * 24
+# TODO: Reduce the cache expiration time once the contest is over and optimize
+# for the GAE URLFetch deadline.
+CACHE_EXPIRATION_TIME = 3600 * 24 * 10
 
 queries = {
     "top": MOST_FORKED_REPO_QUERY,
