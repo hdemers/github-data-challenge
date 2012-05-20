@@ -1,10 +1,11 @@
 /*global d3:false */
 /*global d3:false _:false*/
 define([
+  "jquery",
   "flat",
   "underscore"
 ],
-function (earth) {
+function ($, earth) {
   var exports = {};
   
   exports.addCities = function (cities) {
@@ -17,6 +18,7 @@ function (earth) {
         drawCity(_.values(geocities));
       }
     });
+    $("#loader").hide();
   };
 
   var drawCity = function (cities) {

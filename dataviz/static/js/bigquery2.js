@@ -26,6 +26,7 @@ function ($, viz) {
   var getRepoStats = function (repoName) {
     var repo = repositoryData[repoName],
       data = {"r": repo.name, "o": repo.owner};
+    $("#loader").show();
     viz.erase();
     console.log("Requesting timeline for", repoName);
     request("repo", data, viz.addCities);
